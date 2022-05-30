@@ -11,20 +11,17 @@ import javafx.scene.text.FontWeight;
 
 public class Estilos {
 
-		private Background bGround;
+	  Background bGround;
 	
 	// preferencias de Estilos	
 	
 		private String estiloBotao1 = "-fx-font-size: 25; ";
 		private String estiloTitulo = "-fx-text-fill: white; -fx-font-size:70;  -fx-font-weight: bold; ";
-		private String estiloSub = 	  "-fx-text-fill: white; -fx-font-size:30;  -fx-font-weight: bold; ";
-		private String estiloSubB = 	"-fx-text-fill: white; -fx-font-size:30;  -fx-font-weight: bold; ";	
+		private String estiloSub = 	  "-fx-text-fill: white; -fx-font-size:20;  -fx-font-weight: bold; ";
 		private Font fontSubs = Font.font("Arial", FontWeight.EXTRA_BOLD, 40);
 		private Font fontTxt = Font.font("Arial", FontWeight.EXTRA_BOLD, 30);
 		
-		
-		
-		
+
 		public String getEstiloBotao1() {
 			return estiloBotao1;
 		}

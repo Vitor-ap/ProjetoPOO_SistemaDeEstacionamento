@@ -1,36 +1,36 @@
 package boundary;
 
+import java.time.format.DateTimeFormatter;
+
 import controller.EstacionamentoController;
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.converter.LocalDateStringConverter;
 
 
 
 public class EstacionamentoBoundary extends Application{
+	EstacionamentoController control = new EstacionamentoController();
+	Estilos estilos = new Estilos();
 	private Stage stage;
 	private String imagem = "fundo.jpg";
-	Estilos estilos = new Estilos();
-	EstacionamentoController control = new EstacionamentoController();
+	
+	
 	
 	
 	Label lblPlaca = new Label ("Placa");
 	Label lblModelo = new Label ("Modelo");
 	Label lblCor = new Label ("Cor");
 	Label lbldata = new Label ("Data do registro");
-	Label lblNumOrdem = new Label ("Num Ordem");
+
 
 	Label lblHoraE = new Label("Entrada");
 	Label lblHoraS = new Label("Saida");
@@ -39,17 +39,14 @@ public class EstacionamentoBoundary extends Application{
 	TextField txtPlaca = new TextField();
 	TextField txtModelo = new TextField();
 	TextField txtCor = new TextField();
-	DatePicker txtData = new DatePicker();
-	Text txtNumOrdem = new Text();
+	TextField txtData = new TextField();
 	TextField txtHoraEntrada = new TextField();
 	TextField txtMinutoEntrada = new TextField();
 	TextField txtHoraSaida = new TextField();
 	TextField txtMinutoSaida = new TextField();
 	
-	GridPane formularioEstac = new GridPane();
-	GridPane formularioEntrada = new GridPane();
-	GridPane formularioSaida = new GridPane();
-
+	
+	
 	Button btnRg = new Button("Registrar");
 	Button btnPesq = new Button("Consultar");
 	Button btnVoltar = new Button("Clientes");
@@ -59,6 +56,24 @@ public class EstacionamentoBoundary extends Application{
 	@Override
 	public void start(Stage stage) throws Exception {
 		Background bGround = estilos.setarPlanoDeFundo(imagem);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateStringConverter ldc =
+               new LocalDateStringConverter(formatter, null);
+        
+      
+        GridPane formularioEstac = new GridPane();
+    	GridPane formularioEntrada = new GridPane();
+    	GridPane formularioSaida = new GridPane();
+    	BorderPane painelPrincipal = new BorderPane();
+
+        
+		Bindings.bindBidirectional(control.placaProperty(), txtPlaca.textProperty());
+		Bindings.bindBidirectional(control.modeloProperty(), txtModelo.textProperty());
+		Bindings.bindBidirectional(control.corProperty(), txtCor.textProperty());
+		Bindings.bindBidirectional(txtData.textProperty(), control.dataProperty(), ldc);
+		
+		
 		
 		formularioEntrada.add(txtHoraEntrada, 0, 0);
 		formularioEntrada.add(txtMinutoEntrada, 2, 0);
@@ -91,15 +106,25 @@ public class EstacionamentoBoundary extends Application{
 		formularioEstac.add(btnPesq, 2, 3);
 		formularioEstac.add(btnVoltar, 3, 3);
 		
+		painelPrincipal.setTop(formularioEstac);
+		painelPrincipal.setCenter(control.getTable());
 		
 		
+		
+		btnRg.setOnAction(e ->{
+			control.adicionar();
+		});
 		
 		btnVoltar.setOnAction(e ->{
 			//etStage().close();
 			//control.voltar();
 		});
 		
-		Scene scn = new Scene(formularioEstac,1400,800);
+		
+		
+		
+		
+		Scene scn = new Scene(painelPrincipal,1400,800);
 		stage.setTitle("Registro de estacionamento");
 		stage.setScene(scn);
 		formularioEstac.setBackground(bGround);

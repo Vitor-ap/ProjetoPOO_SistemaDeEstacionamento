@@ -6,12 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Lighting;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -26,10 +21,6 @@ public class Principal extends Application {
 	
 //criacao das Labels	
 	private Label titulo = new Label("        Gerenciador de Estacionamento        ");
-
-
-	
-	
 	
 //Criacao dos Botoes	
 	
@@ -54,18 +45,16 @@ public class Principal extends Application {
 		
 		
 		
-		btnMenuEstac.setOnAction(e ->{
-			getStage().close();
+		btnMenuEstac.setOnAction(e->{
 			p.acessaEstac();
 		});
 
 		
 		btnMenuCl.setOnAction(e->{
-			getStage().close();
 			p.acessaClientes();
 		});
 		
-		btnFechar.setOnAction(e ->{
+		btnFechar.setOnAction(e->{
 			getStage().close();
 		});
 				
@@ -80,11 +69,9 @@ public class Principal extends Application {
 		titulo.setStyle(estilos.GetEstitloTitulo());
 		titulo.setEffect(new Lighting());
 
-
 		
 		Scene scn = new Scene(principal, 1400, 800);
 		stage.setMaximized(false);
-		
 		
 		
 		stage.setResizable(false);
@@ -94,13 +81,10 @@ public class Principal extends Application {
 		stage.show();
 		setStage(stage);
 		
-
 	}
 	
 	public static void main(String[] args) {
 		Application.launch(Principal.class, args);	}
-	
-	
 	
 	
 		public  Stage getStage() {
