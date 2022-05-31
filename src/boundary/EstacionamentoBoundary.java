@@ -15,27 +15,20 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 
-
-
-public class EstacionamentoBoundary extends Application{
+public class EstacionamentoBoundary extends Application {
 	EstacionamentoController control = new EstacionamentoController();
 	Estilos estilos = new Estilos();
 	private Stage stage;
-	private String imagem = "fundo.jpg";
-	
-	
-	
-	
-	Label lblPlaca = new Label ("Placa");
-	Label lblModelo = new Label ("Modelo");
-	Label lblCor = new Label ("Cor");
-	Label lbldata = new Label ("Data do registro");
+	private String imagem = "fundopreto2.jpg";
 
+	Label lblPlaca = new Label("Placa");
+	Label lblModelo = new Label("Modelo");
+	Label lblCor = new Label("Cor");
+	Label lbldata = new Label("Data do registro");
 
 	Label lblHoraE = new Label("Entrada");
 	Label lblHoraS = new Label("Saida");
-	
-	
+
 	TextField txtPlaca = new TextField();
 	TextField txtModelo = new TextField();
 	TextField txtCor = new TextField();
@@ -44,37 +37,28 @@ public class EstacionamentoBoundary extends Application{
 	TextField txtMinutoEntrada = new TextField();
 	TextField txtHoraSaida = new TextField();
 	TextField txtMinutoSaida = new TextField();
-	
-	
-	
+
 	Button btnRg = new Button("Registrar");
 	Button btnPesq = new Button("Consultar");
-	Button btnVoltar = new Button("Clientes");
-	
-	
-	
+	Button btnFechar = new Button("Fechar");
+
 	@Override
 	public void start(Stage stage) throws Exception {
 		Background bGround = estilos.setarPlanoDeFundo(imagem);
-		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDateStringConverter ldc =
-               new LocalDateStringConverter(formatter, null);
-        
-      
-        GridPane formularioEstac = new GridPane();
-    	GridPane formularioEntrada = new GridPane();
-    	GridPane formularioSaida = new GridPane();
-    	BorderPane painelPrincipal = new BorderPane();
 
-        
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDateStringConverter ldc = new LocalDateStringConverter(formatter, null);
+
+		GridPane formularioEstac = new GridPane();
+		GridPane formularioEntrada = new GridPane();
+		GridPane formularioSaida = new GridPane();
+		BorderPane painelPrincipal = new BorderPane();
+
 		Bindings.bindBidirectional(control.placaProperty(), txtPlaca.textProperty());
 		Bindings.bindBidirectional(control.modeloProperty(), txtModelo.textProperty());
 		Bindings.bindBidirectional(control.corProperty(), txtCor.textProperty());
 		Bindings.bindBidirectional(txtData.textProperty(), control.dataProperty(), ldc);
-		
-		
-		
+
 		formularioEntrada.add(txtHoraEntrada, 0, 0);
 		formularioEntrada.add(txtMinutoEntrada, 2, 0);
 		formularioEntrada.add(new Label(" : "), 1, 0);
@@ -82,13 +66,14 @@ public class EstacionamentoBoundary extends Application{
 		formularioSaida.add(txtMinutoSaida, 2, 0);
 		formularioSaida.add(new Label(" : "), 1, 0);
 		txtHoraEntrada.setPrefSize(80, 60);
-		txtMinutoEntrada.setFont(estilos.getFontTxt());
+		txtMinutoEntrada.setPrefSize(80, 60);
 		txtHoraSaida.setPrefSize(80, 60);
-		txtMinutoSaida.setFont(estilos.getFontTxt());
-		
-		
+		txtMinutoSaida.setPrefSize(80, 60);
+
+
+
 		formularioEstac.setStyle(estilos.GetEstiloSub());
-		formularioEstac.setHgap(10);
+		formularioEstac.setHgap(50);
 		formularioEstac.setVgap(10);
 		formularioEstac.add(lblPlaca, 0, 0);
 		formularioEstac.add(txtPlaca, 1, 0);
@@ -102,29 +87,23 @@ public class EstacionamentoBoundary extends Application{
 		formularioEstac.add(formularioEntrada, 1, 2);
 		formularioEstac.add(lblHoraS, 2, 2);
 		formularioEstac.add(formularioSaida, 3, 2);
-		formularioEstac.add(btnRg, 1, 3);
-		formularioEstac.add(btnPesq, 2, 3);
-		formularioEstac.add(btnVoltar, 3, 3);
+		formularioEstac.add(btnRg, 4, 0);
+		formularioEstac.add(btnPesq, 4, 1);
+		formularioEstac.add(btnFechar, 4, 2);
 		
+		btnRg.setStyle(estilos.getEstiloBotao1());
+		btnPesq.setStyle(estilos.getEstiloBotao1());
+		btnFechar.setStyle(estilos.getEstiloBotao1());
+		
+
 		painelPrincipal.setTop(formularioEstac);
 		painelPrincipal.setCenter(control.getTable());
-		
-		
-		
-		btnRg.setOnAction(e ->{
+
+		btnRg.setOnAction(e -> {
 			control.adicionar();
 		});
-		
-		btnVoltar.setOnAction(e ->{
-			//etStage().close();
-			//control.voltar();
-		});
-		
-		
-		
-		
-		
-		Scene scn = new Scene(painelPrincipal,1400,800);
+
+		Scene scn = new Scene(painelPrincipal, 1400, 800);
 		stage.setTitle("Registro de estacionamento");
 		stage.setScene(scn);
 		formularioEstac.setBackground(bGround);
@@ -132,16 +111,13 @@ public class EstacionamentoBoundary extends Application{
 		setStage(stage);
 	}
 
-
-
 	public Stage getStage() {
 		return stage;
-	
-}
+
+	}
 
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
 
-	
 }

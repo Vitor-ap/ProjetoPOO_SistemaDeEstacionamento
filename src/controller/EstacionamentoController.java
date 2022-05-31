@@ -3,6 +3,7 @@ package controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import boundary.Estilos;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -18,7 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.Estacionamento;
 
 public class EstacionamentoController {
-
+	Estilos estilos = new Estilos();
 	//Principal principal = new Principal();
 	
 	/*public void voltar() {
@@ -84,37 +85,45 @@ public class EstacionamentoController {
 
 	
 	public EstacionamentoController() {
-		TableColumn<Estacionamento, String> col1 = new TableColumn<>("Placa");
+		TableColumn<Estacionamento, String> col1 = new TableColumn<>("PLACA");
 		col1.setCellValueFactory(new PropertyValueFactory<>("placa"));
 		
-		TableColumn<Estacionamento, String> col2 = new TableColumn<>("Modelo");
+		TableColumn<Estacionamento, String> col2 = new TableColumn<>("MODELO");
 		col2.setCellValueFactory(new PropertyValueFactory<>("modelo"));
 		
-		TableColumn<Estacionamento, String> col3 = new TableColumn<>("Cor");
+		TableColumn<Estacionamento, String> col3 = new TableColumn<>("COR");
 		col3.setCellValueFactory(new PropertyValueFactory<>("cor"));
 		
 		
-		TableColumn<Estacionamento, String> col4 = new TableColumn<>("Data");
+		TableColumn<Estacionamento, String> col4 = new TableColumn<>("DATA");
 		col4.setCellValueFactory((itemData)-> {
             LocalDate dt = itemData.getValue().getData();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             return new ReadOnlyStringWrapper(dt.format(formatter));
 		});
 	
-		//TableColumn<Estacionamento, String> col4 = new TableColumn<>("Entrada(Hr)");
-		//col4.setCellValueFactory(new PropertyValueFactory<>("Entrada(Hr)"));
+		TableColumn<Estacionamento, String> col5 = new TableColumn<>("HR.ENTRADA");
+		col4.setCellValueFactory(new PropertyValueFactory<>("Entrada(Hr)"));
 		
-		//TableColumn<Estacionamento, String> col5 = new TableColumn<>("Entrada(Min)");
-		//col5.setCellValueFactory(new PropertyValueFactory<>("Entrada(Min)"));
+		TableColumn<Estacionamento, String> col6 = new TableColumn<>("MIN.ENTRADA");
+		col5.setCellValueFactory(new PropertyValueFactory<>("Entrada(Min)"));
 		
-		//TableColumn<Estacionamento, String> col6 = new TableColumn<>("Saida(Hr)");
-		//col6.setCellValueFactory(new PropertyValueFactory<>("Saida(Hr)"));
+		TableColumn<Estacionamento, String> col7 = new TableColumn<>("HR.SAIDA");
+		col6.setCellValueFactory(new PropertyValueFactory<>("Saida(Hr)"));
 		
-		//TableColumn<Estacionamento, String> col7 = new TableColumn<>("Saida(Hr)");
-		//col7.setCellValueFactory(new PropertyValueFactory<>("Saida(Min)"));
+		TableColumn<Estacionamento, String> col8 = new TableColumn<>("MIN.SAIDA");
+		col7.setCellValueFactory(new PropertyValueFactory<>("Saida(Min)"));
 		
-		table.getColumns().addAll(col1,col2,col3,col4);
-		
+		table.getColumns().addAll(col1,col2,col3,col4,col5,col6,col7,col8);
+		col1.setPrefWidth(175);
+		col2.setPrefWidth(175);
+		col3.setPrefWidth(175);
+		col4.setPrefWidth(175);
+		col5.setPrefWidth(175);
+		col6.setPrefWidth(175);
+		col7.setPrefWidth(175);
+		col8.setPrefWidth(175);
+		table.setStyle(estilos.GetEstiloSub());
 		table.setItems(estacionamento);
 		
 	}
@@ -136,6 +145,7 @@ public class EstacionamentoController {
 	}
 	
 	public TableView<Estacionamento> getTable() {
+	
 		return table;
 	}
 	

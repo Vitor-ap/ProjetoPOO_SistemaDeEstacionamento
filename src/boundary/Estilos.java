@@ -17,7 +17,7 @@ public class Estilos {
 	
 		private String estiloBotao1 = "-fx-font-size: 25; ";
 		private String estiloTitulo = "-fx-text-fill: white; -fx-font-size:70;  -fx-font-weight: bold; ";
-		private String estiloSub = 	  "-fx-text-fill: white; -fx-font-size:20;  -fx-font-weight: bold; ";
+		private String estiloSub = 	  "-fx-font-size:20;  -fx-font-weight: bold; ";
 		private Font fontSubs = Font.font("Arial", FontWeight.EXTRA_BOLD, 40);
 		private Font fontTxt = Font.font("Arial", FontWeight.EXTRA_BOLD, 30);
 		

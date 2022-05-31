@@ -17,7 +17,7 @@ public class Principal extends Application {
 	PrincipalController p = new PrincipalController();
 
 	private Stage stage;
-	private String imagem = "predioeaudi.jpg";
+	private String imagem = "predioeaudi2.jpg";
 	
 //criacao das Labels	
 	private Label titulo = new Label("        Gerenciador de Estacionamento        ");

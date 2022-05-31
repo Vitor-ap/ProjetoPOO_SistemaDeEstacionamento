@@ -19,7 +19,7 @@ public class ClientesBoundary extends Application{
 	Estilos estilos = new Estilos();
 	ClientesController controlCl = new ClientesController();
 	private Stage stage;
-	private String imagem = "fundo.jpg";
+	private String imagem = "fundopreto.jpg";
 	
 	
 	
@@ -33,7 +33,6 @@ public class ClientesBoundary extends Application{
 	
 	Button btnSalvar = new Button("Salvar");
 	Button btnPesq = new Button("Pesquisar");
-	Button btnEstac = new Button("Estacionamento");
 	
 	TextField txtNome = new TextField();
 	TextField txtCpf = new TextField();
@@ -84,10 +83,11 @@ public class ClientesBoundary extends Application{
 		formularioCl.add(txtdataAdesao, 1, 3);
 		formularioCl.add(lblStatus, 0, 4);
 		formularioCl.add(txtStatus, 1, 4);
+		
 		formularioCl.add(btnSalvar,0,5);
 		formularioCl.add(btnPesq,0,6);
-		formularioCl.add(btnEstac,0,7);
-		
+		btnSalvar.setStyle(estilos.getEstiloBotao1());
+		btnPesq.setStyle(estilos.getEstiloBotao1());
 		
 		formularioCl.setStyle(estilos.GetEstiloSub());
 		formularioCl.setHgap(30);
@@ -100,10 +100,6 @@ public class ClientesBoundary extends Application{
 		
 		btnSalvar.setOnAction(e ->{
 			controlCl.adicionar();
-		});
-		
-		btnEstac.setOnAction(e ->{
-			controlCl.acessaEstac();
 		});
 		
 		

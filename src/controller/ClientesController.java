@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import boundary.EstacionamentoBoundary;
+import boundary.Estilos;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleObjectProperty;
@@ -18,7 +19,8 @@ import javafx.stage.Stage;
 import model.Clientes;
 
 public class ClientesController {
-
+	
+	Estilos estilos = new Estilos();
 	private TableView<Clientes> table = new TableView<>();
 	private ObservableList<Clientes> clientes = FXCollections.observableArrayList();
 	
@@ -54,26 +56,34 @@ public class ClientesController {
 	
 	
 	public ClientesController() {
-		TableColumn<Clientes, String> col1 = new TableColumn<>("Nome");
+		TableColumn<Clientes, String> col1 = new TableColumn<>("NOME");
 		col1.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		
-		TableColumn<Clientes, String> col2 = new TableColumn<>("Cpf");
+		TableColumn<Clientes, String> col2 = new TableColumn<>("CPF");
 		col2.setCellValueFactory(new PropertyValueFactory<>("cpf"));
 		
-		TableColumn<Clientes, String> col3 = new TableColumn<>("Plano");
+		TableColumn<Clientes, String> col3 = new TableColumn<>("PLANO");
 		col3.setCellValueFactory(new PropertyValueFactory<>("plano"));
 		
-		TableColumn<Clientes, String> col4 = new TableColumn<>("Data Adesao");
+		TableColumn<Clientes, String> col4 = new TableColumn<>("DATA DE ADESAO");
 		col4.setCellValueFactory((itemData)-> {
             LocalDate dt = itemData.getValue().getDataAdesao();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             return new ReadOnlyStringWrapper(dt.format(formatter));
 		});
 		
-		TableColumn<Clientes, String> col5 = new TableColumn<>("Status");
+		TableColumn<Clientes, String> col5 = new TableColumn<>("STATUS");
 		col5.setCellValueFactory(new PropertyValueFactory<>("status"));
 	
 		table.getColumns().addAll(col1, col2, col3, col4, col5);
+		
+		col1.setPrefWidth(200);
+		col2.setPrefWidth(200);
+		col3.setPrefWidth(200);
+		col4.setPrefWidth(200);
+		col5.setPrefWidth(200);
+
+		table.setStyle(estilos.GetEstiloSub());
 		
 		table.setItems(clientes);
 		table.setEditable(true);
@@ -97,7 +107,6 @@ public class ClientesController {
         return table;
 	}
 
-	
 	
 	
 	public void acessaEstac() {
