@@ -2,9 +2,14 @@ package controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import boundary.EstacionamentoBoundary;
 import boundary.Estilos;
+import dao.ClientesDAO;
+import dao.ClientesDAOImpl;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleObjectProperty;
@@ -15,12 +20,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 import model.Clientes;
 
 public class ClientesController {
 	
 	Estilos estilos = new Estilos();
+	private ClientesDAO  dao = new ClientesDAOImpl();
 	private TableView<Clientes> table = new TableView<>();
 	private ObservableList<Clientes> clientes = FXCollections.observableArrayList();
 	
@@ -55,6 +60,7 @@ public class ClientesController {
 
 	
 	
+	@SuppressWarnings("unchecked")
 	public ClientesController() {
 		TableColumn<Clientes, String> col1 = new TableColumn<>("NOME");
 		col1.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -99,21 +105,28 @@ public class ClientesController {
 		c.setDataAdesao(dataAdesao.get());
 		c.setStatus(status.get());
 		clientes.add(c);
+		JOptionPane.showMessageDialog(null, "Adicionado com sucesso!");	
+		dao.inserir(c);
+		esvaziarCli();
 	}
 	
 	
+	public void pesquisar() {
+		List<Clientes> lista = dao.consultar(nome.get());
+	    clientes.clear();
+	    clientes.addAll(lista);
+	    esvaziarCli();
+	}
+	
+	public void esvaziarCli() {
+		nome.set("");
+		cpf.set("");
+		plano.set("");
+		dataAdesao.set(LocalDate.now());
+		status.set("");
+	}
 	
 	public TableView <Clientes>getTable() {
         return table;
-	}
-
-	
-	
-	public void acessaEstac() {
-		try {
-			estacionamento.start(new Stage());
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
 	}
 }

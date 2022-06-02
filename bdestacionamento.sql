@@ -17,4 +17,5 @@ create table estacionamento(
     status char(7)
     );
     
-    alter table estacionamento modify column 1 char(7);
+    alter table estacionamento modify column placa char(7);
+    alter table clientes modify column cpf char(14);

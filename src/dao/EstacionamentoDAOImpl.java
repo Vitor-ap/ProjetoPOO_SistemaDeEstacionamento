@@ -27,7 +27,6 @@ public class EstacionamentoDAOImpl implements EstacionamentoDAO {
         }
     }
 
-    
 	
 	@Override
 	public void inserir(Estacionamento e) {
@@ -55,7 +54,7 @@ public class EstacionamentoDAOImpl implements EstacionamentoDAO {
 	@Override
 	public List<Estacionamento> consultar(String placa) {
 	        List<Estacionamento> lista = new ArrayList<>();
-	        String sql = "SELECT * FROM estacionamento WHERE placa LIKE '%" + placa + "'";
+	        String sql = "SELECT * FROM estacionamento WHERE placa LIKE '" + placa + "%'";
 	        
 	        try {
 	            PreparedStatement stmt = con.prepareStatement(sql);

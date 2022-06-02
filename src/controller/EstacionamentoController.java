@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import boundary.Estilos;
 import dao.EstacionamentoDAO;
 import dao.EstacionamentoDAOImpl;
@@ -35,7 +37,6 @@ public class EstacionamentoController {
 	private StringProperty minEntrada = new SimpleStringProperty();
 	private StringProperty hrSaida = new SimpleStringProperty();
 	private StringProperty minSaida = new SimpleStringProperty();
-	//private IntegerProperty numOrdem = new SimpleIntegerProperty();
 	
 
 	public StringProperty placaProperty() {
@@ -70,6 +71,7 @@ public class EstacionamentoController {
 }
 
 	
+	@SuppressWarnings("unchecked")
 	public EstacionamentoController() {
 		TableColumn<Estacionamento, String> col1 = new TableColumn<>("PLACA");
 		col1.setCellValueFactory(new PropertyValueFactory<>("placa"));
@@ -127,20 +129,18 @@ public class EstacionamentoController {
 		e.setHrSaida(hrSaida.get());
 		e.setMinSaida(minSaida.get());
 		estacionamento.add(e);
+		JOptionPane.showMessageDialog(null, "Adicionado com sucesso!");
 		dao.inserir(e);
 		esvaziarEstac();
-		
-		
 	}
 	
 	public void pesquisar() {
-	
-
 	List<Estacionamento> lista = dao.consultar(placa.get());
     estacionamento.clear();
     estacionamento.addAll(lista);
     esvaziarEstac();
 	}
+	
 	
 	public void esvaziarEstac() {
 	  placa.set("");
@@ -151,10 +151,9 @@ public class EstacionamentoController {
 	    minEntrada.set("");
 	    hrSaida.set("");
 	    minSaida.set("");
-	    
 	}
-	public TableView<Estacionamento> getTable() {
 	
+	public TableView<Estacionamento> getTable() {
 		return table;
 	}
 	

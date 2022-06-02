@@ -26,7 +26,7 @@ public class Principal extends Application {
 //Criacao dos Botoes	
 	
 	
-	private Button btnMenuEstac = new Button("Controle de estacionamento");
+	private Button btnMenuEstac = new Button("Controle do estacionamento");
 	private Button btnMenuCl =   new Button("Cadastro dos clientes");
 	private Button btnFechar =   new Button("Fechar");
 
@@ -72,10 +72,9 @@ public class Principal extends Application {
 
 		
 		Scene scn = new Scene(principal, 1400, 800);
-		stage.setMaximized(false);
-		stage.setResizable(false);
+		//stage.setMaximized(false);
+		//stage.setResizable(false);
 		stage.initStyle(StageStyle.UNDECORATED);
-		
 		stage.setScene(scn);
 		//stage.setTitle("Estacionamento");
 		stage.show();
@@ -89,11 +88,9 @@ public class Principal extends Application {
 	
 		public  Stage getStage() {
 			return stage;
-		
-	}
+		}
 	
 		public void setStage(Stage stage) {
 			this.stage = stage;
 		}
-	
 }
