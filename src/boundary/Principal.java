@@ -9,6 +9,7 @@ import javafx.scene.effect.Lighting;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Principal extends Application {
 
@@ -72,12 +73,11 @@ public class Principal extends Application {
 		
 		Scene scn = new Scene(principal, 1400, 800);
 		stage.setMaximized(false);
-		
-		
 		stage.setResizable(false);
+		stage.initStyle(StageStyle.UNDECORATED);
 		
 		stage.setScene(scn);
-		stage.setTitle("Estacionamento");
+		//stage.setTitle("Estacionamento");
 		stage.show();
 		setStage(stage);
 		

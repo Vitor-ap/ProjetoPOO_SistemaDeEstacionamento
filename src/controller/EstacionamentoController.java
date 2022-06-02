@@ -2,12 +2,13 @@ package controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import boundary.Estilos;
-import javafx.beans.property.IntegerProperty;
+import dao.EstacionamentoDAO;
+import dao.EstacionamentoDAOImpl;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -20,35 +21,20 @@ import model.Estacionamento;
 
 public class EstacionamentoController {
 	Estilos estilos = new Estilos();
-	//Principal principal = new Principal();
-	
-	/*public void voltar() {
-		try {
-			principal.start(new Stage());
-			} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	*/       
 	
 	
-	
-	
-	
-	
-	
-	
+	private EstacionamentoDAO dao = new EstacionamentoDAOImpl();
 	private TableView<Estacionamento>table = new TableView<>();
 	private ObservableList<Estacionamento> estacionamento = FXCollections.observableArrayList();
 	
-	public StringProperty placa = new SimpleStringProperty();
-	public StringProperty modelo = new SimpleStringProperty();
+	private StringProperty placa = new SimpleStringProperty();
+	private StringProperty modelo = new SimpleStringProperty();
 	private StringProperty cor = new SimpleStringProperty();
 	private ObjectProperty<LocalDate> data = new SimpleObjectProperty<>();
-	private IntegerProperty hrEntrada = new SimpleIntegerProperty();
-	private IntegerProperty minEntrada = new SimpleIntegerProperty();
-	private IntegerProperty hrSaida = new SimpleIntegerProperty();
-	private IntegerProperty minSaida = new SimpleIntegerProperty();
+	private StringProperty hrEntrada = new SimpleStringProperty();
+	private StringProperty minEntrada = new SimpleStringProperty();
+	private StringProperty hrSaida = new SimpleStringProperty();
+	private StringProperty minSaida = new SimpleStringProperty();
 	//private IntegerProperty numOrdem = new SimpleIntegerProperty();
 	
 
@@ -67,19 +53,19 @@ public class EstacionamentoController {
 		return data;
 	}
 	
-	public IntegerProperty hrEntradaProperty() {
+	public StringProperty hrEntradaProperty() {
 		return hrEntrada;
 	}
 	
-	public IntegerProperty minEntradaProperty() {
+	public StringProperty minEntradaProperty() {
 		return minEntrada;
 	}
 	
-	public IntegerProperty hrSaidaProperty() {
+	public StringProperty hrSaidaProperty() {
 		return hrSaida;
 	}
 	
-	public IntegerProperty minSaidaProperty() {
+	public StringProperty minSaidaProperty() {
 		return minSaida;
 }
 
@@ -102,19 +88,20 @@ public class EstacionamentoController {
             return new ReadOnlyStringWrapper(dt.format(formatter));
 		});
 	
-		TableColumn<Estacionamento, String> col5 = new TableColumn<>("HR.ENTRADA");
-		col4.setCellValueFactory(new PropertyValueFactory<>("Entrada(Hr)"));
+		TableColumn<Estacionamento, String> col5 = new TableColumn<>("HRENTRADA");
+		col5.setCellValueFactory(new PropertyValueFactory<>("hrEntrada"));
 		
-		TableColumn<Estacionamento, String> col6 = new TableColumn<>("MIN.ENTRADA");
-		col5.setCellValueFactory(new PropertyValueFactory<>("Entrada(Min)"));
+		TableColumn<Estacionamento, String> col6 = new TableColumn<>("MINENTRADA");
+		col6.setCellValueFactory(new PropertyValueFactory<>("minEntrada"));
 		
-		TableColumn<Estacionamento, String> col7 = new TableColumn<>("HR.SAIDA");
-		col6.setCellValueFactory(new PropertyValueFactory<>("Saida(Hr)"));
+		TableColumn<Estacionamento, String> col7 = new TableColumn<>("HRSAIDA");
+		col7.setCellValueFactory(new PropertyValueFactory<>("hrSaida"));
 		
-		TableColumn<Estacionamento, String> col8 = new TableColumn<>("MIN.SAIDA");
-		col7.setCellValueFactory(new PropertyValueFactory<>("Saida(Min)"));
+		TableColumn<Estacionamento, String> col8 = new TableColumn<>("MINSAIDA");
+		col8.setCellValueFactory(new PropertyValueFactory<>("minSaida"));
 		
 		table.getColumns().addAll(col1,col2,col3,col4,col5,col6,col7,col8);
+		
 		col1.setPrefWidth(175);
 		col2.setPrefWidth(175);
 		col3.setPrefWidth(175);
@@ -135,15 +122,37 @@ public class EstacionamentoController {
 		e.setModelo(modelo.get());
 		e.setCor(cor.get());
 		e.setData(data.get());
-		//e.setHrEntrada(hrEntrada.get());
-		//e.setMinEntrada(minEntrada.get());
-		//e.setHrSaida(hrSaida.get());
-		//e.setMinSaida(minSaida.get());
+		e.setHrEntrada(hrEntrada.get());
+		e.setMinEntrada(minEntrada.get());
+		e.setHrSaida(hrSaida.get());
+		e.setMinSaida(minSaida.get());
 		estacionamento.add(e);
+		dao.inserir(e);
+		esvaziarEstac();
 		
 		
 	}
 	
+	public void pesquisar() {
+	
+
+	List<Estacionamento> lista = dao.consultar(placa.get());
+    estacionamento.clear();
+    estacionamento.addAll(lista);
+    esvaziarEstac();
+	}
+	
+	public void esvaziarEstac() {
+	  placa.set("");
+	    modelo.set("");
+	    cor.set("");
+	    data.set(LocalDate.now());
+	    hrEntrada.set("");
+	    minEntrada.set("");
+	    hrSaida.set("");
+	    minSaida.set("");
+	    
+	}
 	public TableView<Estacionamento> getTable() {
 	
 		return table;

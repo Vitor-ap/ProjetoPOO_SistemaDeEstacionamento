@@ -1,5 +1,6 @@
 package boundary;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import controller.EstacionamentoController;
@@ -7,12 +8,14 @@ import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.converter.LocalDateStringConverter;
 
 public class EstacionamentoBoundary extends Application {
@@ -32,7 +35,7 @@ public class EstacionamentoBoundary extends Application {
 	TextField txtPlaca = new TextField();
 	TextField txtModelo = new TextField();
 	TextField txtCor = new TextField();
-	TextField txtData = new TextField();
+	DatePicker txtData = new DatePicker(LocalDate.now());
 	TextField txtHoraEntrada = new TextField();
 	TextField txtMinutoEntrada = new TextField();
 	TextField txtHoraSaida = new TextField();
@@ -40,14 +43,12 @@ public class EstacionamentoBoundary extends Application {
 
 	Button btnRg = new Button("Registrar");
 	Button btnPesq = new Button("Consultar");
-	Button btnFechar = new Button("Fechar");
+	Button btnFechar = new Button("Voltar");
 
 	@Override
 	public void start(Stage stage) throws Exception {
 		Background bGround = estilos.setarPlanoDeFundo(imagem);
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		LocalDateStringConverter ldc = new LocalDateStringConverter(formatter, null);
 
 		GridPane formularioEstac = new GridPane();
 		GridPane formularioEntrada = new GridPane();
@@ -57,7 +58,11 @@ public class EstacionamentoBoundary extends Application {
 		Bindings.bindBidirectional(control.placaProperty(), txtPlaca.textProperty());
 		Bindings.bindBidirectional(control.modeloProperty(), txtModelo.textProperty());
 		Bindings.bindBidirectional(control.corProperty(), txtCor.textProperty());
-		Bindings.bindBidirectional(txtData.textProperty(), control.dataProperty(), ldc);
+		Bindings.bindBidirectional(txtData.valueProperty(), control.dataProperty());
+		Bindings.bindBidirectional(control.hrEntradaProperty(), txtHoraEntrada.textProperty());
+		Bindings.bindBidirectional(control.minEntradaProperty(),txtMinutoEntrada.textProperty());
+		Bindings.bindBidirectional(control.hrSaidaProperty(),txtHoraSaida.textProperty());
+		Bindings.bindBidirectional(control.minSaidaProperty(),txtMinutoSaida.textProperty());
 
 		formularioEntrada.add(txtHoraEntrada, 0, 0);
 		formularioEntrada.add(txtMinutoEntrada, 2, 0);
@@ -90,7 +95,7 @@ public class EstacionamentoBoundary extends Application {
 		formularioEstac.add(btnRg, 4, 0);
 		formularioEstac.add(btnPesq, 4, 1);
 		formularioEstac.add(btnFechar, 4, 2);
-		
+
 		btnRg.setStyle(estilos.getEstiloBotao1());
 		btnPesq.setStyle(estilos.getEstiloBotao1());
 		btnFechar.setStyle(estilos.getEstiloBotao1());
@@ -102,10 +107,22 @@ public class EstacionamentoBoundary extends Application {
 		btnRg.setOnAction(e -> {
 			control.adicionar();
 		});
+		
+		btnPesq.setOnAction(e -> {
+			control.pesquisar();
+		});
 
+		btnFechar.setOnAction(e ->{
+			getStage().close();
+		});
+		
+		
+		
 		Scene scn = new Scene(painelPrincipal, 1400, 800);
-		stage.setTitle("Registro de estacionamento");
+		//stage.setTitle("Registro de estacionamento");
+		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setScene(scn);
+		
 		formularioEstac.setBackground(bGround);
 		stage.show();
 		setStage(stage);

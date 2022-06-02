@@ -26,11 +26,11 @@ public class ClientesController {
 	
 	EstacionamentoBoundary estacionamento = new EstacionamentoBoundary();
 
-	public StringProperty nome = new SimpleStringProperty("");
-	public StringProperty cpf = new SimpleStringProperty("");
-	public StringProperty plano = new SimpleStringProperty("");
-	public ObjectProperty<LocalDate> dataAdesao = new SimpleObjectProperty<>();
-	public StringProperty status = new SimpleStringProperty("");
+	private StringProperty nome = new SimpleStringProperty();
+	private StringProperty cpf = new SimpleStringProperty();
+	private StringProperty plano = new SimpleStringProperty();
+	private ObjectProperty<LocalDate> dataAdesao = new SimpleObjectProperty<>();
+	private StringProperty status = new SimpleStringProperty();
 	
 	public StringProperty nomeProperty() {
 		return nome;
@@ -77,11 +77,11 @@ public class ClientesController {
 	
 		table.getColumns().addAll(col1, col2, col3, col4, col5);
 		
-		col1.setPrefWidth(200);
-		col2.setPrefWidth(200);
-		col3.setPrefWidth(200);
-		col4.setPrefWidth(200);
-		col5.setPrefWidth(200);
+		col1.setPrefWidth(190);
+		col2.setPrefWidth(190);
+		col3.setPrefWidth(190);
+		col4.setPrefWidth(190);
+		col5.setPrefWidth(190);
 
 		table.setStyle(estilos.GetEstiloSub());
 		

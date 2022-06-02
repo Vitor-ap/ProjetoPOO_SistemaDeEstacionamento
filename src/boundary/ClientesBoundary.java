@@ -5,14 +5,19 @@ import java.time.format.DateTimeFormatter;
 import controller.ClientesController;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.converter.LocalDateStringConverter;
 
 public class ClientesBoundary extends Application{
@@ -33,40 +38,28 @@ public class ClientesBoundary extends Application{
 	
 	Button btnSalvar = new Button("Salvar");
 	Button btnPesq = new Button("Pesquisar");
+	Button btnFechar = new Button("Voltar");
 	
 	TextField txtNome = new TextField();
 	TextField txtCpf = new TextField();
-	TextField txtdataAdesao = new TextField();
-	TextField txtPlano = new TextField();
-	TextField txtStatus = new TextField();
+	DatePicker txtdataAdesao = new DatePicker();
+
+	ComboBox<String> txtPlano = new ComboBox<String>(FXCollections.observableArrayList("Mensal", "Semestral","Anual"));
+	ComboBox<String> txtStatus = new ComboBox<String>(FXCollections.observableArrayList("Ativo", "Inativo"));
 	
 	
 	@Override
 	public void start(Stage stage) throws Exception {
 		
 		Background bGround = estilos.setarPlanoDeFundo(imagem);
-		
-		//ObservableList<String> listPlano = FXCollections.observableArrayList("Mensal", "Semestral","Anual");
-		//final ComboBox<String> plano = new ComboBox<String>(listPlano);
-		//plano.setPrefSize(250, 40);
-		
-		//ObservableList<String> listStatus = FXCollections.observableArrayList("Ativo", "Inativo");
-		//final ComboBox<String> status = new ComboBox<String>(listStatus);
-		//status.setPrefSize(250, 40);
-		
-		
-		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDateStringConverter ldc =
-               new LocalDateStringConverter(formatter, null);
-        
-		
+			
+
 		
         Bindings.bindBidirectional(controlCl.nomeProperty(), txtNome.textProperty());
         Bindings.bindBidirectional(controlCl.cpfProperty(), txtCpf.textProperty());
-        Bindings.bindBidirectional(controlCl.planoProperty(), txtPlano.textProperty());
-        Bindings.bindBidirectional(txtdataAdesao.textProperty(), controlCl.dataAdesaoProperty(), ldc);
-        Bindings.bindBidirectional(controlCl.statusProperty(), txtStatus.textProperty());
+        Bindings.bindBidirectional(txtPlano.valueProperty(), controlCl.planoProperty());
+        Bindings.bindBidirectional(txtdataAdesao.valueProperty(), controlCl.dataAdesaoProperty());
+        Bindings.bindBidirectional(txtStatus.valueProperty(), controlCl.statusProperty());
 		
 		
 		
@@ -79,19 +72,24 @@ public class ClientesBoundary extends Application{
 		formularioCl.add(txtCpf, 1, 1);
 		formularioCl.add(lblPlano, 0, 2);
 		formularioCl.add(txtPlano, 1, 2);
+		txtPlano.setPrefSize(250, 40);
 		formularioCl.add(lblData, 0,3);
 		formularioCl.add(txtdataAdesao, 1, 3);
 		formularioCl.add(lblStatus, 0, 4);
 		formularioCl.add(txtStatus, 1, 4);
+		txtStatus.setPrefSize(250, 40);
 		
 		formularioCl.add(btnSalvar,0,5);
 		formularioCl.add(btnPesq,0,6);
+		formularioCl.add(btnFechar,0,7);
 		btnSalvar.setStyle(estilos.getEstiloBotao1());
 		btnPesq.setStyle(estilos.getEstiloBotao1());
+		btnFechar.setStyle(estilos.getEstiloBotao1());
 		
 		formularioCl.setStyle(estilos.GetEstiloSub());
 		formularioCl.setHgap(30);
 		formularioCl.setVgap(30);
+		formularioCl.setAlignment(Pos.CENTER);
 		
 		painelPrincipal.setLeft(formularioCl);
 		painelPrincipal.setBackground(bGround);
@@ -103,13 +101,18 @@ public class ClientesBoundary extends Application{
 		});
 		
 		
-		Scene scn = new Scene(painelPrincipal, 1400,800);
 		
-		stage.setTitle("Clientes");
+		btnFechar.setOnAction(e ->{
+			getStage().close();
+		});
+		
+		
+		Scene scn = new Scene(painelPrincipal, 1400,800);
+		stage.initStyle(StageStyle.UNDECORATED);
+		//stage.setTitle("Clientes");
 		stage.setScene(scn);
 		stage.show();
-		stage.setMaximized(false);
-		stage.setResizable(false);
+
 		setStage(stage);
 		
 		

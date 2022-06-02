@@ -9,11 +9,11 @@ public class Estacionamento {
 	private String modelo;
 	private String cor;
 	private LocalDate data;
-	private int hrEntrada;
-	private int minEntrada;
-	private int hrSaida;
-	private int minSaida;
-	private int numOrdem;
+	private String hrEntrada;
+	private String minEntrada;
+	private String hrSaida;
+	private String minSaida;
+	private String numOrdem;
 	
 	
 	public String getPlaca() {
@@ -40,36 +40,36 @@ public class Estacionamento {
 	public void setData(LocalDate data) {
 		this.data = data;
 	}
-	public int getHrEntrada() {
+	public String getHrEntrada() {
 		return hrEntrada;
 	}
-	public void setHrEntrada(int hrEntrada) {
+	public void setHrEntrada(String hrEntrada) {
 		this.hrEntrada = hrEntrada;
 	}
-	public int getMinEntrada() {
+	public String getMinEntrada() {
 		return minEntrada;
 	}
-	public void setMinEntrada(int minEntrada) {
+	public void setMinEntrada(String minEntrada) {
 		this.minEntrada = minEntrada;
 	}
-	public int getHrSaida() {
+	public String getHrSaida() {
 		return hrSaida;
 	}
-	public void setHrSaida(int hrSaida) {
+	public void setHrSaida(String hrSaida) {
 		this.hrSaida = hrSaida;
 	}
-	public int getMinSaida() {
+	public String getMinSaida() {
 		return minSaida;
 	}
-	public void setMinSaida(int minSaida) {
+	public void setMinSaida(String minSaida) {
 		this.minSaida = minSaida;
 	}
 	
-	public int GetNumOrdem() {
+	public String GetNumOrdem() {
 		return numOrdem;
 	}
 	
-	public void setNumOrdem(int numOrdem) {
+	public void setNumOrdem(String numOrdem) {
 		this.numOrdem = numOrdem;
 	}
 	
